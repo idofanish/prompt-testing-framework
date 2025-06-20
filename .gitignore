@@ -1,0 +1,20 @@
+.secrets/
+__pycache__/
+*.pyc
+outputs/
+*.log
+*.tar.gz
+.env
+.cache/
+.*_cache/
+notebooks/
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+# Ignore Python virtual environments
+venv/
+# Ignore Python bytecode files
+*.py[cod]
+# Ignore coverage reports
+.coverage
+# Ignore test output
+nosetests.xml

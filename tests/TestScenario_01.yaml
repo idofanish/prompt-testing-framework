@@ -1,0 +1,47 @@
+- id: TC_001
+  title: "Prompt Echo by Non-Instruct Model"
+  prompt: "Explain the benefits of reading books in three sentences."
+  model: "distilgpt2"
+  expected_behavior: >
+    Model generates 3 unique sentences listing different cognitive, emotional, or social benefits.
+  actual_behavior: >
+    Model repeated the input prompt without answering.
+  failure_signature:
+    type: "Prompt Echo"
+    detection_strategy: "Jaccard similarity between prompt and response > 0.85"
+  severity: "Moderate"
+  category: "Instruction Ignored"
+  tags: ["echo", "instruction-agnostic", "distilgpt2"]
+  notes: "Occurs frequently with non-instruction-tuned models. Consider rephrasing with explicit 'AI:' cue."
+
+- id: TC_002
+  title: "Enumerated Hallucination with Book References"
+  prompt: "Benefits of reading books:\n1."
+  model: "distilgpt2"
+  expected_behavior: >
+    Model lists specific benefits in numbered format (e.g., 1. Improves vocabulary).
+  actual_behavior: >
+    Model generated a series of repetitive lines: 'The first book is a great introduction...'
+  failure_signature:
+    type: "Enumerated Hallucination"
+    detection_strategy: "Detect repetitive template phrase structure (n-gram repetition > threshold)"
+  severity: "Low"
+  category: "Format Misalignment"
+  tags: ["hallucination", "enumeration-pattern", "template-lock"]
+  notes: "Represents failure to extract semantic intent from numerical structure."
+
+- id: TC_003
+  title: "Content Drift with Template Recycling"
+  prompt: "Write three benefits of reading books:"
+  model: "distilgpt2"
+  expected_behavior: >
+    A coherent paragraph or bullet list naming distinct benefits.
+  actual_behavior: >
+    Output reused a vague sentence template for each item without elaboration.
+  failure_signature:
+    type: "Semantic Drift"
+    detection_strategy: "Detect low lexical diversity or topic irrelevance"
+  severity: "Moderate"
+  category: "Repetitive Generation"
+  tags: ["template-lock", "coherence-drop"]
+  notes: "Model reuses surface grammar"

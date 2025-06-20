@@ -1,0 +1,79 @@
+- id: TC_004
+  title: "Response exceeds sentence limit"
+  prompt: "Explain the benefits of reading books in three sentences."
+  model: "distilgpt2"
+  expected_behavior: >
+    The model generates exactly three well-formed sentences, each addressing a distinct benefit of reading (e.g., knowledge gain, empathy, stress relief).
+  actual_behavior: >
+    Model output included five or more loosely-connected sentences, occasionally repeating ideas.
+  failure_signature:
+    type: "Instruction Overrun"
+    detection_strategy: "Count number of terminal punctuation markers (periods). Threshold = 3."
+  severity: "Low"
+  category: "Instruction Misalignment"
+  tags: ["verbosity", "non-compliance", "sentence-count"]
+  notes: "Non-instruction-tuned models often fail to respect output length directives unless prompted with strong format cues like 'In exactly three sentences:' or 'Limit response to...'"
+
+- id: TC_005
+  title: "Incoherent Response with Repetitive Structure"
+  prompt: "Write three benefits of reading books:"
+  model: "distilgpt2"
+  expected_behavior: >
+    Model generates a coherent list of three distinct benefits, each with a unique sentence structure.
+  actual_behavior: >
+    Model output consisted of three sentences that were nearly identical, with only minor variations in wording.
+  failure_signature:
+    type: "Repetitive Generation"
+    detection_strategy: "Jaccard similarity between sentences > 0.85"
+  severity: "Moderate"
+  category: "Coherence Drop"
+  tags: ["repetition", "coherence", "template-lock"]
+  notes: "Model appears to have locked into a template structure, failing to generate diverse content. Consider rephrasing prompt to encourage more varied responses."
+
+- id: TC_006
+  title: "Excessive Verbosity with Template Recycling"
+  prompt: "Explain the benefits of reading books in three sentences."
+  model: "distilgpt2"
+  expected_behavior: >
+    Model generates a concise response with three distinct benefits, each articulated in a single sentence.
+  actual_behavior: >
+    Model output included multiple sentences that were overly verbose and repetitive, failing to adhere to the three-sentence limit.
+  failure_signature:
+    type: "Verbosity Drift"
+    detection_strategy: "Count number of sentences; threshold = 3. Check for excessive word count per sentence."
+  severity: "Moderate"
+  category: "Instruction Misalignment"
+  tags: ["verbosity", "template-lock", "repetition"]
+  notes: "Model's tendency to generate verbose responses can be mitigated by explicitly stating 'in exactly three concise sentences' or similar phrasing."
+
+- id: TC_007
+  title: "Semantic Drift with Template Recycling"
+  prompt: "Write three benefits of reading books:"
+  model: "distilgpt2"
+  expected_behavior: >
+    Model generates a coherent list of three distinct benefits, each articulated in a unique sentence.
+  actual_behavior: >
+    Model output consisted of three sentences that were nearly identical, with only minor variations in wording.
+  failure_signature:
+    type: "Semantic Drift"
+    detection_strategy: "Jaccard similarity between sentences > 0.85"
+  severity: "Moderate"
+  category: "Coherence Drop"
+  tags: ["semantic drift", "template-lock", "repetition"]
+  notes: "Model appears to have locked into a template structure, failing to generate diverse content. Consider rephrasing prompt to encourage more varied responses."
+
+- id: TC_008
+  title: "Excessive Verbosity with Template Recycling"
+  prompt: "Explain the benefits of reading books in three sentences."
+  model: "distilgpt2"
+  expected_behavior: >
+    Model generates a concise response with three distinct benefits, each articulated in a single sentence.
+  actual_behavior: >
+    Model output included multiple sentences that were overly verbose and repetitive, failing to adhere to the three-sentence limit.
+  failure_signature:
+    type: "Verbosity Drift"
+    detection_strategy: "Count number of sentences; threshold = 3. Check for excessive word count per sentence."
+  severity: "Moderate"
+  category: "Instruction Misalignment"
+  tags: ["verbosity", "template-lock", "repetition"]
+  notes: "Model's tendency to generate verbose responses can be mitigated by explicitly stating 'in exactly three concise sentences' or similar phrasing."

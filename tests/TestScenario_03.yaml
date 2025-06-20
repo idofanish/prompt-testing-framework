@@ -1,0 +1,21 @@
+- id: TC_Books_009
+  title: Benefits of Reading Books
+  prompt: |
+    Human: What are the benefits of reading books?
+    AI:
+  model: distilgpt2
+  Expected_behavior: >
+    The AI should generate a thoughtful, informative answer highlighting key benefits of reading—such as enhanced cognitive development, stress reduction, empathy cultivation, and knowledge acquisition—without parroting the prompt or veering off-topic.
+  failure_signature: Prompt Echo or Semantic Drift
+  type: response_quality
+  detection_strategy: >
+    Use embedding-based cosine similarity with mean-pooled hidden states. Flag if similarity with the prompt is too high (> 0.85, echo) or too low (< 0.6, drift).
+  severity: medium
+  category: content_fidelity
+  tags:
+    - semantic_similarity
+    - response_quality
+    - prompt_echo
+    - relevance_check
+  notes: >
+    Can be extended with keyphrase assertions to validate inclusion of concepts like "vocabulary", "mental stimulation", or "stress reduction" using keyword matching or embedding proximity.
